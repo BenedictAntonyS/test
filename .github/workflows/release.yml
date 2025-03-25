@@ -1,0 +1,26 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers the workflow on any tag starting with "v"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}  # Use github.ref_name instead of github.ref
+          release_name: Release ${{ github.ref_name }}
+          body_path: CHANGELOG.md  # Ensure this file exists in the repo
+          draft: false
+          prerelease: false
