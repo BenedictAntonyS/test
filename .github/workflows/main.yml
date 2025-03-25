@@ -13,12 +13,16 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
+          python-version: '3.x'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Install dependencies from requirements.txt
+          pip install -r requirements.txt
+          pip install pytest  # Ensure pytest is installed
 
-      - name: Run tests
-        run: pytest  # Run tests with pytest
+      - name: Check Installed Packages (Debugging Step)
+        run: pip list  # Check if pytest is listed
+
+      - name: Verify Pytest Installation
+        run: python -
